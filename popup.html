@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid #21262d;
+    }
+    .header-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #059669, #34d399);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e6edf3;
+      line-height: 1.2;
+    }
+    .header-text span {
+      font-size: 11px;
+      color: #7d8590;
+    }
+
+    /* Content */
+    .content {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Toggle row */
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .row-label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Toggle switch */
+    .switch {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .switch input { display: none; }
+    .track {
+      position: absolute;
+      inset: 0;
+      background: #30363d;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .track::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 3px;
+      top: 3px;
+      background: #7d8590;
+      border-radius: 50%;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .switch input:checked + .track {
+      background: #059669;
+    }
+    .switch input:checked + .track::before {
+      transform: translateX(16px);
+      background: #fff;
+    }
+
+    /* Stats card */
+    .stats-card {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stats-ring {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .stats-ring svg {
+      transform: rotate(-90deg);
+      width: 44px;
+      height: 44px;
+    }
+    .stats-ring .bg {
+      fill: none;
+      stroke: #21262d;
+      stroke-width: 4;
+    }
+    .stats-ring .fg {
+      fill: none;
+      stroke: #10b981;
+      stroke-width: 4;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.4s ease;
+    }
+    .stats-ring .center-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+    .stats-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stats-info .primary {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+    .stats-info .primary span {
+      color: #10b981;
+    }
+    .stats-info .secondary {
+      font-size: 11px;
+      color: #7d8590;
+    }
+
+    /* Buffer slider */
+    .slider-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slider-label {
+      font-size: 12px;
+      color: #7d8590;
+    }
+    .slider-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e6edf3;
+      background: #21262d;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #21262d;
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 0 3px #0d1117;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #34d399;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 10px 16px;
+      border-top: 1px solid #21262d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .footer a {
+      font-size: 11px;
+      color: #7d8590;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+    .footer a:hover {
+      color: #34d399;
+    }
+    .footer svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-icon">V</div>
+    <div class="header-text">
+      <h1>ChatGPT Virtualizer</h1>
+      <span>DOM performance optimizer</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="row">
+      <span class="row-label">Virtualization</span>
+      <label class="switch">
+        <input type="checkbox" id="toggle" checked>
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="stats-card">
+      <div class="stats-ring">
+        <svg viewBox="0 0 44 44">
+          <circle class="bg" cx="22" cy="22" r="18" />
+          <circle class="fg" id="ring" cx="22" cy="22" r="18"
+            stroke-dasharray="113.1" stroke-dashoffset="113.1" />
+        </svg>
+        <div class="center-text" id="pct">0%</div>
+      </div>
+      <div class="stats-info">
+        <div class="primary"><span id="vcount">0</span> / <span id="tcount">0</span></div>
+        <div class="secondary">messages virtualized</div>
+      </div>
+    </div>
+
+    <div class="slider-section">
+      <div class="slider-header">
+        <span class="slider-label">Buffer zone</span>
+        <span class="slider-value" id="bufval">2000px</span>
+      </div>
+      <input type="range" id="buffer" min="1000" max="5000" step="500" value="2000">
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://github.com/trxyazilimgit" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      trxyazilimgit
+    </a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
